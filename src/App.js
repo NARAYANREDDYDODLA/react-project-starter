@@ -1,30 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import AnimalShow from "./AnimalShow";
+import {useState} from 'react'
 
-function App() {
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>React Starter Project</h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.js</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+function getRandomAnimals(){
+  const animals =['bird', 'cat', 'horse', 'gator', 'cow','dog']
+
+  return animals [Math.floor(Math.random() * animals.length)]
+}
+function App(){
+const [count,setCount] = useState(0);
+const [animals,setAnimals] = useState([]);
+  const handleClick = () => {
+        setCount(c => c+1)
+  
+        setAnimals([...animals,getRandomAnimals()])
+      }
+ const renderedAnimals = animals.map((animal,index) => {
+  return <AnimalShow type = {animal} key={index}/>
+ })
+  return (<div> 
+              <button onClick ={handleClick}>Add Animal</button>
+            Number of animals ={count}
+             {renderedAnimals}
+  </div>
+       
+  )
 }
 
 export default App;
